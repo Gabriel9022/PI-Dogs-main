@@ -5,12 +5,9 @@ import { useParams } from 'react-router-dom';
 import detail from '../estilos/detail.module.css'
 
 
-
 const Detail = () => {
 
-
 const {id} = useParams();
-//console.log(id)
 
 const dispatch = useDispatch();
 
@@ -30,7 +27,7 @@ const temperament = typeof(dog.temperament)=== 'string'? dog.temperament : dog.t
       <p>Breed: {dog.name}</p>
       <p>Temperament: {temperament}</p> 
       <p>Weight(kg): {dog.weight_min} - {dog.weight_max}</p>
-      <p>Height(cm): {dog.height_min} - {dog.height_min}</p>
+      <p>Height(cm): {dog.height_min} - {dog.height_max}</p>
       <p>Life span: {dog.life_span_min} - {dog.life_span_max}</p>
     </div>
   )

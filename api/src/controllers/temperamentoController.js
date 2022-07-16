@@ -16,9 +16,9 @@ async function temperamentos (){
     return acc;
   },[])
     
-    let unaMas =  divididos.filter(c => c)
+    let newTemp =  divididos.filter(c => c)
 
-    await unaMas.forEach((temperament) => {
+    await newTemp.forEach((temperament) => {
         if (temperament !== ""){
         Temperamento.create({
            name: temperament,

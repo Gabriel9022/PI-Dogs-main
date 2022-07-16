@@ -1,9 +1,11 @@
-import {GET_ALL_DOGS, GET_DOG, GET_DOG_ID, NEW_DOG, TEMPERAMENTS/* , LOADING */} from "./actions.js";
+import {GET_ALL_DOGS, GET_DOG, GET_DOG_ID, NEW_DOG, TEMPERAMENTS, SEARCH, LOADING} from "./actions.js";
 const initialState = {
     dogs: [],
+    dogsSearched: [],
     dog: {},
-    temperaments: []
-   // loading: false
+    temperaments: [],
+    search: "",
+    loading: false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,7 +18,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_DOG:
             return {
                 ...state,
-                dogs: action.payload
+                dogsSearched: action.payload
             };
             case GET_DOG_ID:
                 return{
@@ -33,11 +35,16 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     temperaments: action.payload
                 };
-            // case LOADING:
-            //     return {
-            //         ...state,
-            //         laoding: action.payload
-            //     }
+            case SEARCH:
+                return{
+                  ...state,
+                  search: action.payload  
+                };
+            case LOADING:
+                return {
+                    ...state,
+                    laoding: action.payload
+                }
         default:
             return state;
     }

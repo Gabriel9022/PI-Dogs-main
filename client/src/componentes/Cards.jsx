@@ -3,14 +3,20 @@ import Card from './Card';
 import cards from "../estilos/cards.module.css";
 
 
-
-const Cards = ({props}) => {
-  return (
+const Cards =  (props) => {
+  console.log(props)
+   return (
+    <div>
+    <h1>Pagina: {props?.currentPage}</h1>
+            <button onClick={props?.prevHandler}>prev</button>
+            <button onClick={props?.nextHandler}>next</button>
     <div className={cards.div}>
+
       {/* {console.log(props)}  */}
-        {props && props.map(e => {
+      {props?.dogsProps && props?.dogsProps?.map(e => {
         //  console.log(e)
          return(
+           
           <div className={cards.tarjetas} key={e.id}>
            <Card
          
@@ -24,6 +30,7 @@ const Cards = ({props}) => {
            </div>
         )
         })}
+    </div>
     </div>
 
   )

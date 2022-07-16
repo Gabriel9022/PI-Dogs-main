@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { newDog } from "../redux/actions";
 import { temperamentos } from "../redux/actions";
-import validate from "../validateForm/validateForm";
+import validate from "../validates/validateForm";
 
 const RazaNueva = () => {
 const [temper, setTemper] = useState(
@@ -24,7 +24,7 @@ const [errors, setErrors] = useState({});
 
 
 function handleOnChange (e){
-    console.log(stateValidate)
+   // console.log(stateValidate)
     setStateValidate({
         ...stateValidate,
         [e.target.name]: e.target.value
@@ -64,6 +64,7 @@ let handleSelect = (e) => {
 
 const select = e.target.value;
 if (select === "default") return
+if(stateValidate.temperament.includes(e.target.value)) return
 setStateValidate({...stateValidate, temperament:[...stateValidate.temperament, select]})
 
 setTemper([...temper, temps.find(e => e.id === parseInt(select))])

@@ -1,62 +1,55 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import {getDog} from '../redux/actions';
+import React, {useState} from 'react';
+import {getDog, search} from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+/* import validate from '../validates/validateSearch'; */
 
-class SearchBar extends Component {
+const SearchBar = () => {
 
-    constructor(props) {
-        
-        super(props);
-        this.state = {      
-            name: ""
-        }
-    //    console.log(this.state)
-    }
-    
-    handleChange(e) {
-        this.setState( {name: e.target.value} ); 
-    //    console.log(e.target.value) //letra x letra que voy escribiendo
-    }
+let history = useHistory() 
 
-    handleSubmit(e) {
-        e.preventDefault();
-        this.props.getDog(this.state.name);
-       // console.log(this.state.name) //cuando apreto Search consologea el nomber que escribi
-       this.setState({name: ""});
-    }
-    
-  render (){
-    const {name} = this.state;
-   // console.log(name)
-    return (
+const searchState = useSelector((state) => state.search)
+
+const [state, setState] = useState("")
+
+/* const [errors, setErrors] = useState({}); */
+
+const dispatch = useDispatch()
+
+const handleChange = (e) => {
+      
+      setState( e.target.value );
+      /* setErrors(validate(
+      {[e.target.state]: e.target.value}
+      )) */
+  }
+  
+const  handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getDog(state));
+    dispatch(search(state))
+    setState("");
+    history.push('/home')
+  }
+
+  return (
     <div>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-        <input 
+        <form >
+        <input /* className={errors.state && 'danger'} */
         type="text"
         placeholder='Breed...'
-        value={name}
-        onChange={(e) => this.handleChange(e)}
+        value={state}
+        onChange={(e) => handleChange(e)}
         />
-        <button type="submit">Search</button>
+     {/*    {errors.state && (
+        <p className="danger">{errors.state}</p>
+)} */}
+        <input type="submit" disabled={!state || state[0] === " "} 
+        onClick={(e) => handleSubmit(e)}  value="Search"/>
         </form>
 
     </div>
-    );
-  };
+  )
 }
 
-function mapStateToProps(state){
-   // console.log(state) los 3 estados globales 
-    return{
-        dogs: state.dogs
-    }
-}
-
-// function mapDispacthToProps(dispatch){
-//  //   console.log(dispatch) no se si realmente esta haciendo algo ese dispatch
-//     return{
-//         getAllDogs: () => dispatch(getAllDogs())
-//     }
-// }
-
-export default connect(mapStateToProps, {getDog})(SearchBar);
+export default SearchBar;

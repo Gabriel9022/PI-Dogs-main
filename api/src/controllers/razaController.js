@@ -90,7 +90,7 @@ async function idRaza(req, res, next) {
         let razaDb = await Raza.findAll({
             include: Temperamento
         });
-        console.log(razaDb)
+      //  console.log(razaDb)
         let objId = {}
      //  console.log(typeof(id))
         if(id.length < 4){
@@ -191,8 +191,9 @@ async function crearRaza (req, res, next){
       //  console.log(razaNueva)
         const razaN = await razaNueva.addTemperamento(temperamentoId);
         return res.json(razaN);
+        //  return alert ('Raza creada') no hace nada
     }
-        res.send('Ya existe esa raza')
+        return res.status(400).json({message: 'Ya existe esa raza'}) // no hace nada
     
 }
 

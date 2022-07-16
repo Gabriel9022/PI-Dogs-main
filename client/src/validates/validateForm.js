@@ -10,10 +10,10 @@ export default function validate(stateValidate) {
   } ; */
   if (!stateValidate.name) {
     errors.name = 'Name is required';
-} else if (stateValidate.name[0]===" " || stateValidate.name.length-1 ===" "){
-  errors.name = 'Blank spaces are not allowed at the beginning or end';
+} else if (stateValidate.name[0]===" "){
+  errors.name = 'Blank spaces are not allowed at the beginning';
 } else if (!/[A-ZÑ]+$/i.test(stateValidate.name)) {
-    errors.name = 'Only letters are valid';
+    errors.name = 'Only letters are valid and Blank spaces are not allowed at the end';
 } ;
 
   if (!stateValidate.height_min) {
@@ -27,6 +27,15 @@ export default function validate(stateValidate) {
 } else if (!/(?=.*[0-9][^A-ZÑ])/i.test(stateValidate.height_max)) {
   errors.height_max = 'Only numbers are valid';
 };
+
+/*   if (stateValidate.temperament.length) {
+    let tempArray = [...stateValidate.temperament].sort();
+    for (let i = 0; i < tempArray.length; i++) {
+      if (tempArray[i] + 1 === tempArray[i]) {
+        errors.temperament = "Cannot repeat temperament"
+      }
+    }
+  } */
 
 /*   if(!state.weight) {
     errors.weight = "Weight is required";
