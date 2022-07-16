@@ -1,0 +1,78 @@
+.div{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 20px;
+    background-color: lightgrey;
+    border-radius: 10px;
+    height: 350px;
+    width: 250px;
+}
+
+.imagen{
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    max-height: 175px;
+}
+
+.imagen img{
+    width: 100%;
+   
+}
+
+.info{
+display: flex;
+text-align: start;
+justify-content: center;
+flex-direction: column;
+word-wrap: break-word;
+}
+
+.info p{
+    margin: 5px;
+    font-size: small;
+}
+
+.name{ 
+    position: relative;
+    text-align: center;
+    margin: 0;
+    color: #00ad26;
+}
+
+.peso{
+    color: rgb(20, 3, 121);
+}
+
+.temperamento{
+    color: rgb(20, 3, 121);
+}
+
+.contBoton{
+    position: absolute;
+    bottom: 0;
+    width: 250px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    position: relative;
+    margin: 5px;
+    height: 30px;
+    width: 100px;
+    background-color: #78e08f;
+    color: white;
+    text-size-adjust: auto;
+    border: 1px;
+    border-radius: 3px;
+    transition: all 1s ease;
+}
+
+.button:hover {
+background-color: #00ad26;
+color: white;
+}

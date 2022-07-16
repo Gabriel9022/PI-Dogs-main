@@ -1,0 +1,22 @@
+.div{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 20px;
+    background-color: lightgrey;
+    border-radius: 10px;
+    height: 600px;
+    width: 450px;
+}
+
+.imagen {
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    max-height: 350px;
+}
+
+.imagen img{
+    width: 100%;
+   
+}

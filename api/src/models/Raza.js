@@ -4,32 +4,57 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
 
     sequelize.define('raza', {
-        ID: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            unique: 'composite_unique'
-        },
-
-        Nombre: {
-            type: DataTypes.STRING,
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
-            unique: 'composite_unique'
+            primaryKey: true
         },
 
-        Altura: {
-            type: DataTypes.INTEGER,
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+
+        },
+
+        height_min: {
+            type: DataTypes.STRING,
+            allowNull: false
+
+        },
+        height_max: {
+            type: DataTypes.STRING,
+            allowNull: false
+
+        },
+
+        weight_min: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        weight_max: {
+            type: DataTypes.STRING,
             allowNull: false
         },
 
-        Peso: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+        life_span_min: {
+            type: DataTypes.STRING,
+           /*  get(){
+                let value = this.getDataValue('life_span')
+                if(!value) return null
+                return value + ' years old'
+            } */
         },
-
-        Años_de_vida: {
-            type: DataTypes.INTEGER
+        life_span_max: {
+            type: DataTypes.STRING,
+            get(){
+                let value = this.getDataValue('life_span_max')
+                if(!value) return null
+                return value + ' years old'
+            }
         }
 
-    })
+    },
+        { timestamps: false });
 
 }
