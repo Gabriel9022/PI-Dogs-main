@@ -49,6 +49,10 @@ let handleSubmit = (e)=> {
     e.preventDefault();
     //console.log(stateValidate)
     dispatch(newDog(stateValidate))
+    .then(()=>{
+        let form = document.getElementById("form")
+        form.reset()
+    })
     setStateValidate({
         image: "",
         name: "",
@@ -85,11 +89,15 @@ let handleDelete = (e) => {
 }
 
 return <div>
-    <form >
+    <form  id="form">
 <div>
     <label>Image: </label>
-    <input type="text" name="image"
+    <input className={errors.image && 'danger'}
+    type="text" name="image"
     value={stateValidate.image} onChange={handleOnChange}/>
+    {errors.image && (
+    <p className="danger">{errors.image}</p>
+)}
 </div>
 
 <div>

@@ -35,7 +35,6 @@ export const getDog = (name) => async (dispatch) => {
 
     try {
         dispatch(loading (true))
-
         let data = (await axios.get(`http://localhost:3001/dogs?name=${name}`)).data
   
         dispatch({ type: "GET_DOG", payload: data})
@@ -106,7 +105,6 @@ export const filter = (e) => {
 
 export const backFilter = (e) => {
     if (e === "dogs_api"){
-        console.log(e)
         return {type: "API_FILTER"}
     } else if (e === "dogs_db"){
         return {type: "DB_FILTER"}

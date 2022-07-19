@@ -70,15 +70,12 @@ const rootReducer = (state = initialState, action) => {
                     dogs: [...state.dogs].sort((a, b) => parseInt(b.weight_max) - parseInt(a.weight_max)) 
                 }
             case TEMPS_FILTER:
-                const allDogs = [...state.dogs];
-                //const tempsFilteres = allDogs.filter(e => e.temperament.includes(action.payload))
                 return{
-                    ...state,
-                    /* tempsFiltered */dogs: /* tempsFilteres */allDogs.filter(e => e.temperament.includes(action.payload))
+                    ...state,  
+                   dogs: [...state.dogs].filter(e => e.temperament.includes(action.payload))
                 }
             case API_FILTER:
                 const apiFilter = [...state.dogs].filter(e => typeof(e.id) !== "string")
-                console.log(apiFilter)
                 return{
                     ...state,
                     dogs: apiFilter

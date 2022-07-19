@@ -16,16 +16,12 @@ const [state, setState] = useState("")
 
 const dispatch = useDispatch()
 
-const handleChange = (e) => {
-      
+const handleChange = (e) => {   
       setState( e.target.value );
-      /* setErrors(validate(
-      {[e.target.state]: e.target.value}
-      )) */
   }
   
 const  handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     setCurrentPage(0)
     dispatch(getDog(state));
     dispatch(search(state))

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const Cards = (props) => {
-  //console.log(props?.filterT)
 
   const dispatch = useDispatch()
 
@@ -15,11 +14,11 @@ const Cards = (props) => {
   },[dispatch]);
   
   const temps = useSelector(state => state.temperaments);
-
+console.log(props)
   return (
     <div>
       <h1>Pagina: {props?.currentPage}</h1>
-      <select onChange={props?.order}>
+      <select id="orderSelect" onChange={props?.order}>
         <option selected={true} hidden>A Z / Z A</option>
         <option value="az">A Z</option>
         <option value="za">Z A</option>
@@ -33,7 +32,7 @@ const Cards = (props) => {
       <button onClick={props?.prevHandler}>prev</button>
       <button onClick={props?.nextHandler}>next</button>
 
-      <select onChange={props?.filterT}>
+      <select id="tempsOrder" onChange={props?.filterT}>
         <option selected={true} hidden>temperaments filter</option>
         {
           temps?.map(e => {
@@ -50,17 +49,18 @@ const Cards = (props) => {
         {props?.dogsProps && props?.dogsProps?.map(e => {
           //  console.log(e)
           return (
-
             <div className={cards.tarjetas} key={e.id}>
-              <Card
+             {/*  {console.log(props)} */}
+            {props.dogsProps?.length !== 0 ? <Card
 
-                id={e.id}
-                image={e.image}
-                name={e.name}
-                weight_min={e.weight_min}
-                weight_max={e.weight_max}
-                temperament={e.temperament}
-              />
+              id={e.id}
+              image={e.image}
+              name={e.name}
+              weight_min={e.weight_min}
+              weight_max={e.weight_max}
+              temperament={e.temperament}
+            /> : "breed not found" }
+             
             </div>
           )
         })}

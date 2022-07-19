@@ -37,6 +37,10 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
     });
 
     const dataDb = razasDb?.map(e => {
+        if(Array.isArray(e.temperamentos)){
+            e.temperamentos = e.temperamentos.map(e => e.name)
+            e.temperamentos = e.temperamentos.join(", ")
+        }
         if(!e.image){
             e.image = "https://w7.pngwing.com/pngs/774/119/png-transparent-dog-puppy-cartoon-cute-pet-s-mammal-cat-like-mammal-carnivoran-thumbnail.png" 
            }
@@ -50,12 +54,14 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
       weight_max: e.weight_max,
       }})  
 //console.log(dataDb)
-  let data = dataApi.concat(dataDb);
+  let data = dataDb.concat(dataApi);
     //  console.log(data)
-      if(name){
-     dataName = data?.filter(e => e.name.includes(name))
+      if(name){   
+     dataName = data?.filter(e => e.name.toLowerCase().includes(name.toLowerCase()))
+   
      return res.send(dataName)
-      } 
+     
+    } 
    // if (!data.length) return res.send('No hay coincidencias')
 
       //  console.log(data)

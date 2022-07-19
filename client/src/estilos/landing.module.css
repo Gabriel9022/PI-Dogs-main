@@ -1,0 +1,103 @@
+.landing
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background: #0c192c
+}
+
+.container
+{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.bubbles
+{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.bubbles span
+{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: #4fc3dc;
+    margin: 0 4px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 10px #4fc3dc44,
+    0 0 50px #4fc3dc,
+    0 0 100px #4fc3dc;
+    animation: animate 15s linear infinite;
+    animation-duration: calc(125s / var(--i));
+}
+.bubbles span:nth-child(even)
+{
+    background: #ff2d75;
+    box-shadow: 0 0 0 10px #ff2d7544,
+    0 0 50px #ff2d75,
+    0 0 100px #ff2d75;    
+}
+@keyframes animate
+{
+    0%
+    {
+        transform: translateY(100vh) scale(0);
+    }
+    100%
+    {
+        transform: translateY(-10vh) scale(1);
+    }
+}
+
+.span_1{--i:11;}
+.span_2{--i:12;}
+.span_3{--i:24;}
+.span_4{--i:10;}
+.span_5{--i:14;}
+.span_6{--i:23;}
+.span_7{--i:18;}
+.span_8{--i:16;}
+.span_9{--i:19;}
+.span_10{--i:20;}
+.span_11{--i:22;}
+.span_12{--i:25;}
+.span_13{--i:18;}
+.span_14{--i:21;}
+.span_15{--i:15;}
+.span_16{--i:13;}
+.span_17{--i:26;}
+.span_18{--i:17;}
+.span_19{--i:13;}
+.span_20{--i:28;}
+
+.bubbles>a>button
+{
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    border-color: #04AA6D;
+    color: green;
+}
+
+
+.bubbles>a>button:hover {
+    background-color: #04AA6D;
+    color: white;
+  
+  }
