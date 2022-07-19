@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {getDog, search} from '../redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 /* import validate from '../validates/validateSearch'; */
 
-const SearchBar = () => {
+const SearchBar = ({setCurrentPage}) => {
 
 let history = useHistory() 
 
-const searchState = useSelector((state) => state.search)
+// const searchState = useSelector((state) => state.search)
 
 const [state, setState] = useState("")
 
@@ -26,6 +26,7 @@ const handleChange = (e) => {
   
 const  handleSubmit = (e) => {
     e.preventDefault();
+    setCurrentPage(0)
     dispatch(getDog(state));
     dispatch(search(state))
     setState("");

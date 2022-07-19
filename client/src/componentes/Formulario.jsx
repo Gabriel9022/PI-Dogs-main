@@ -10,6 +10,7 @@ const [temper, setTemper] = useState(
 );
 
 const [stateValidate, setStateValidate] = useState({
+    image: "",
     name: "",
     height_min: "",
     height_max: "",
@@ -46,8 +47,10 @@ const temps = useSelector(state => state.temperaments);
 
 let handleSubmit = (e)=> {
     e.preventDefault();
+    //console.log(stateValidate)
     dispatch(newDog(stateValidate))
     setStateValidate({
+        image: "",
         name: "",
         height_min: "",
         height_max: "",
@@ -83,6 +86,11 @@ let handleDelete = (e) => {
 
 return <div>
     <form >
+<div>
+    <label>Image: </label>
+    <input type="text" name="image"
+    value={stateValidate.image} onChange={handleOnChange}/>
+</div>
 
 <div>
 <label>Name: </label>
@@ -134,13 +142,22 @@ value={stateValidate.weight_max} onChange={handleOnChange}/>
 
 <div>
 <label>Life Span(min): </label>
-<input type="text" name="life_span_min" 
+<input className={errors.life_span_min && "danger"}
+type="text" name="life_span_min" 
 value={stateValidate.life_span_min} onChange={handleOnChange}/>
+{errors.life_span_min && (
+    <p className="danger">{errors.life_span_min}</p>
+)} 
 </div>
+
 <div>
 <label>Life Span(max): </label>
-<input type="text" name="life_span_max" 
+<input className={errors.life_span_max && "danger"}
+type="text" name="life_span_max" 
 value={stateValidate.life_span_max} onChange={handleOnChange}/>
+{errors.life_span_max && (
+    <p className="danger">{errors.life_span_max}</p>
+)} 
 </div>
 
 <label>Temperament: </label> 

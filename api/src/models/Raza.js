@@ -52,7 +52,10 @@ module.exports = (sequelize) => {
                 if(!value) return null
                 return value + ' years old'
             }
-        }
+        },
+        image: {
+            type: DataTypes.STRING,
+        },
 
     },
         { timestamps: false });

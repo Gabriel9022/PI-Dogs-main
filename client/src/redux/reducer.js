@@ -1,9 +1,10 @@
-import {GET_ALL_DOGS, GET_DOG, GET_DOG_ID, NEW_DOG, TEMPERAMENTS, SEARCH, LOADING} from "./actions.js";
+import {GET_ALL_DOGS, GET_DOG, GET_DOG_ID, NEW_DOG, TEMPERAMENTS, SEARCH, LOADING, ORDERAZ, ORDERZA, ORDERLOW, ORDERHIGH, TEMPS_FILTER, API_FILTER, DB_FILTER} from "./actions.js";
 const initialState = {
     dogs: [],
     dogsSearched: [],
     dog: {},
     temperaments: [],
+    tempsFilterd: [],
     search: "",
     loading: false
 };
@@ -39,6 +40,55 @@ const rootReducer = (state = initialState, action) => {
                 return{
                   ...state,
                   search: action.payload  
+                };
+            case ORDERAZ:
+                return{
+                    ...state,
+                    dogs: [...state.dogs].sort(function(a, b){
+                        if(a.name < b.name){return -1} 
+                        if(a.name > b.name){return 1}
+                        return 0
+                    })
+                };
+            case ORDERZA:
+                return{
+                    ...state,
+                    dogs: [...state.dogs].sort(function(a, b){
+                        if(a.name > b.name){return -1} 
+                        if(a.name < b.name){return 1}
+                        return 0
+                    })                    
+                };
+            case ORDERLOW:
+                return{
+                    ...state,
+                    dogs: [...state.dogs].sort((a, b) => parseInt(a.weight_min) - parseInt(b.weight_min))                    
+                };
+            case ORDERHIGH:
+                return{
+                    ...state,
+                    dogs: [...state.dogs].sort((a, b) => parseInt(b.weight_max) - parseInt(a.weight_max)) 
+                }
+            case TEMPS_FILTER:
+                const allDogs = [...state.dogs];
+                //const tempsFilteres = allDogs.filter(e => e.temperament.includes(action.payload))
+                return{
+                    ...state,
+                    /* tempsFiltered */dogs: /* tempsFilteres */allDogs.filter(e => e.temperament.includes(action.payload))
+                }
+            case API_FILTER:
+                const apiFilter = [...state.dogs].filter(e => typeof(e.id) !== "string")
+                console.log(apiFilter)
+                return{
+                    ...state,
+                    dogs: apiFilter
+                };
+            case DB_FILTER:
+                const dbFilter = [...state.dogs].filter(e => typeof(e.id) !== "number")
+                console.log(dbFilter)
+                return{
+                    ...state,
+                    dogs: dbFilter
                 };
             case LOADING:
                 return {

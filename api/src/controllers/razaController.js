@@ -19,6 +19,8 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
     e.weight['metric'] = e.weight['metric'].concat(" - ", e.weight['metric'])
 }else if(e.weight['metric'][2] === "N"){
     e.weight['metric'] = e.weight['metric'].slice(6).concat(" - ", e.weight['metric'].slice(6))
+} else if (!e.temperament) {
+    e.temperament = "Intelligent, Courageous"
 }
 
     return {
@@ -33,17 +35,15 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
     let razasDb = await Raza.findAll({
         include: Temperamento
     });
-    // if(name) {
-    //     razasDb = razasDb.filter(e => e.name.includes(name))
-
-    //   }
-    // if (!razasDb.length) throw new Error ("No hay coincidencias con la búsqueda DB")
-   // console.log(razasDb)
 
     const dataDb = razasDb?.map(e => {
-       
+        if(!e.image){
+            e.image = "https://w7.pngwing.com/pngs/774/119/png-transparent-dog-puppy-cartoon-cute-pet-s-mammal-cat-like-mammal-carnivoran-thumbnail.png" 
+           }
+
       return {
       id: e.id,
+      image: e.image,
       name: e.name,
       temperament: e.temperamentos,
       weight_min: e.weight_min,
@@ -53,8 +53,9 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
   let data = dataApi.concat(dataDb);
     //  console.log(data)
       if(name){
-     data = data?.filter(e => e.name.includes(name))
-      }
+     dataName = data?.filter(e => e.name.includes(name))
+     return res.send(dataName)
+      } 
    // if (!data.length) return res.send('No hay coincidencias')
 
       //  console.log(data)
@@ -101,7 +102,10 @@ async function idRaza(req, res, next) {
                 e.weight['metric'] = e.weight['metric'].concat(" - ", e.weight['metric'])
             }else if(e.weight['metric'][2] === "N"){
                 e.weight['metric'] = e.weight['metric'].slice(6).concat(" - ", e.weight['metric'].slice(6))
+            } else if (!e.temperament) {
+                e.temperament = "Intelligent, Courageous"
             }
+           
 
             if (e.id === parseInt(id)) {
 
@@ -126,20 +130,23 @@ async function idRaza(req, res, next) {
               throw new Error ('No se encontró el ID');
            } 
     } else {
-     const temperam = razaDb.map(e => {
+     /* const temperam = razaDb.map(e => {
              
               return  e.temperamentos
             
-        })
+        }) */
         //console.log()
         razaDb.forEach(e => {
+            if(!e.image){
+                e.image = "https://w7.pngwing.com/pngs/774/119/png-transparent-dog-puppy-cartoon-cute-pet-s-mammal-cat-like-mammal-carnivoran-thumbnail.png"
+               }
 
             if (e.id === id) {
 
                 objId = {
                     id: e.id,
-                    //image: e.image['url'],
                     name: e.name,
+                    image: e.image,
                     temperament: e.temperamentos,
                     weight_min: e.weight_min,
                     weight_max: e.weight_max,
@@ -167,10 +174,10 @@ async function idRaza(req, res, next) {
 }
 
 async function crearRaza (req, res, next){
-    const {name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max} = req.body;
+    let {image, name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max} = req.body;
     const temperamentoId = req.body.temperament;
 //console.log(req.body)
-
+    name = name[0].toUpperCase().concat(name.slice(1))
     const raza = await Raza.findOne({
         where: {
             name: name,
@@ -179,6 +186,7 @@ async function crearRaza (req, res, next){
 //console.log(raza)
     if(raza === null) {
         var razaNueva = await Raza.create({
+            image,
             name,
             height_min,
             height_max,
