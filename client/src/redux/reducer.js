@@ -2,6 +2,7 @@ import {GET_ALL_DOGS, GET_DOG, GET_DOG_ID, NEW_DOG, TEMPERAMENTS, SEARCH, LOADIN
 const initialState = {
     dogs: [],
     dogsSearched: [],
+    dogsBackUp: [],
     dog: {},
     temperaments: [],
     tempsFilterd: [],
@@ -14,7 +15,8 @@ const rootReducer = (state = initialState, action) => {
         case GET_ALL_DOGS:
             return {
                 ...state,
-                dogs: action.payload
+                dogs: action.payload,
+                dogsBackUp: action.payload
             };
         case GET_DOG:
             return {
@@ -42,6 +44,7 @@ const rootReducer = (state = initialState, action) => {
                   search: action.payload  
                 };
             case ORDERAZ:
+                if(state.search===""){
                 return{
                     ...state,
                     dogs: [...state.dogs].sort(function(a, b){
@@ -49,31 +52,77 @@ const rootReducer = (state = initialState, action) => {
                         if(a.name > b.name){return 1}
                         return 0
                     })
-                };
-            case ORDERZA:
+                }
+            }else{
                 return{
                     ...state,
-                    dogs: [...state.dogs].sort(function(a, b){
-                        if(a.name > b.name){return -1} 
-                        if(a.name < b.name){return 1}
+                    dogsSearched: [...state.dogsSearched].sort(function(a, b){
+                        if(a.name < b.name){return -1} 
+                        if(a.name > b.name){return 1}
                         return 0
-                    })                    
+                    })
+                }
+            };
+            case ORDERZA:
+                if(state.search===""){
+                    return{
+                        ...state,
+                        dogs: [...state.dogs].sort(function(a, b){
+                            if(a.name > b.name){return -1} 
+                            if(a.name < b.name){return 1}
+                            return 0
+                        })                    
+                    }
+                }else{
+                    return{
+                        ...state,
+                        dogsSearched: [...state.dogsSearched].sort(function(a, b){
+                            if(a.name > b.name){return -1} 
+                            if(a.name < b.name){return 1}
+                            return 0
+                        })                    
+                    }
                 };
+                
             case ORDERLOW:
-                return{
-                    ...state,
-                    dogs: [...state.dogs].sort((a, b) => parseInt(a.weight_min) - parseInt(b.weight_min))                    
+                if(state.search===""){
+                    return{
+                        ...state,
+                        dogs: [...state.dogs].sort((a, b) => parseInt(a.weight_min) - parseInt(b.weight_min))                    
+                    }
+                }else{
+                    return{
+                        ...state,
+                        dogsSearched: [...state.dogsSearched].sort((a, b) => parseInt(a.weight_min) - parseInt(b.weight_min))                    
+                    }
                 };
+               
             case ORDERHIGH:
-                return{
-                    ...state,
-                    dogs: [...state.dogs].sort((a, b) => parseInt(b.weight_max) - parseInt(a.weight_max)) 
-                }
+                 if(state.search===""){
+                    return{
+                        ...state,
+                        dogs: [...state.dogs].sort((a, b) => parseInt(b.weight_max) - parseInt(a.weight_max)) 
+                    }
+                 }else{
+                    return{
+                        ...state,
+                        dogsSearched: [...state.dogsSearched].sort((a, b) => parseInt(b.weight_max) - parseInt(a.weight_max)) 
+                    }
+                 };
+                
             case TEMPS_FILTER:
-                return{
-                    ...state,  
-                   dogs: [...state.dogs].filter(e => e.temperament.includes(action.payload))
+                if(state.search===""){
+                    return{
+                        ...state,  
+                       dogs: [...state.dogs].filter(e => e.temperament?.includes(action.payload))
+                    }
+                }else{
+                    return{
+                        ...state,  
+                       dogsSearched: [...state.dogsSearched].filter(e => e.temperament?.includes(action.payload))
+                    }
                 }
+                
             case API_FILTER:
                 const apiFilter = [...state.dogs].filter(e => typeof(e.id) !== "string")
                 return{
@@ -90,8 +139,9 @@ const rootReducer = (state = initialState, action) => {
             case LOADING:
                 return {
                     ...state,
-                    laoding: action.payload
-                }
+                    loading: action.payload
+                };
+
         default:
             return state;
     }

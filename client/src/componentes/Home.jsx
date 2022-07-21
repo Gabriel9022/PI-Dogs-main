@@ -1,9 +1,10 @@
-import React, {useState, useEffect /* Component */ } from "react";
-//import { connect } from "react-redux";
-import { getAllDogs, order, filter, backFilter } from "../redux/actions";
+import React, {useState, useEffect } from "react";
+import { getAllDogs, order, filter, backFilter, getDog } from "../redux/actions";
 import Cards from "./Cards";
+import Loading from "./Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import style from "../estilos/home.module.css";
 
 
 const Razas = ({currentPage, setCurrentPage}) => {
@@ -22,11 +23,10 @@ const dogs = useSelector((state) => state.dogs)
 
 const dogsSearched = useSelector((state)=> state.dogsSearched)
 
-const search = useSelector((state) => state.search)
+const searchs = useSelector((state) => state.search)
 
 const loading = useSelector((state) => state.loading)
 
-//const tempsFilterd = useSelector((state) => state.tempsFilterd)
 
 
 const [stateDogs, setStateDogs] = useState([...dogs].splice(currentPage, dogsPerPage))
@@ -41,7 +41,7 @@ const [filtereds, setFiltereds] = useState (false)
 if(dogs?.length && !stateDogs?.length && !dogsSearch.length) {
   setStateDogs([...dogs].splice(currentPage, dogsPerPage))
 }
-if (search !== "" && dogs !== undefined && stateDogs.length === 0 && dogsSearch.length===0){
+if (searchs !== "" && dogs !== undefined && stateDogs.length === 0 && dogsSearch.length===0){
 
 setStateDogs(([...dogs].splice(currentPage, dogsPerPage)))
 setDogsSearch(([...dogsSearched].splice(currentPage, dogsPerPage)))
@@ -49,7 +49,13 @@ setDogsSearch(([...dogsSearched].splice(currentPage, dogsPerPage)))
 
 
 const nextHandler = () => {
-  const totalDogs = dogs.length;
+  var totalDogs;
+if (searchs === "") {
+   totalDogs = dogs.length;
+} else {
+   totalDogs = dogsSearched.length;
+}
+  
   const nextPage = currentPage + 1;
   const firstIndex = nextPage * dogsPerPage;
 
@@ -74,10 +80,7 @@ setCurrentPage(prevPage);
 }
 
 const orderHandler = (e) => {
-  var options = document.getElementById("tempsOrder")
-  for (var i = 0, l = options.length; i < l; i++) {
-    options[i].selected = options[i].defaultSelected;
-  }
+
   setCurrentPage(0)
   if(orders !== e.target.value){
   setOrders(e.target.value)
@@ -85,18 +88,15 @@ const orderHandler = (e) => {
     dispatch(order(e.target.value))
     
   } else if (filtereds === false){
-  dispatch(getAllDogs())
-  .then (()=> dispatch(order(e.target.value))) 
+    dispatch(order(e.target.value))
   
   }
   }else {
     if(filtereds === true){
-      console.log("entro")
       dispatch(order(e.target.value))
       
     } else if (filtereds === false){
-    dispatch(getAllDogs())
-    .then (()=> dispatch(order(e.target.value))) 
+      dispatch(order(e.target.value))
     
     }
 
@@ -105,17 +105,24 @@ const orderHandler = (e) => {
 }
 
 const filterTemps = (e) => {
+  setCurrentPage(0)
   var options = document.getElementById("orderSelect")
   for (var i = 0, l = options.length; i < l; i++) {
     options[i].selected = options[i].defaultSelected;
   }
 if(filtereds === false){
   setFiltereds(true)
-  dispatch(getAllDogs())
-  .then(()=> dispatch(filter(e.target.value)))
-  setCurrentPage(0)
+
+  if (searchs === ""){
+    dispatch(getAllDogs())
+    .then(()=> {dispatch(filter(e.target.value)) })
+  } else {
+    dispatch(getDog(searchs))
+    .then(()=> {dispatch(filter(e.target.value)) })
+  }
 }
   setFiltereds(false)
+ 
 }
 
 const ApiDbHandler = (e) => {
@@ -130,22 +137,48 @@ useEffect (()=>{
    return setDogsSearch([...dogsSearched].splice(currentPage*dogsPerPage, dogsPerPage))
   }
   setStateDogs([...dogs].splice(currentPage*dogsPerPage, dogsPerPage))
-}, [dogs, dogsSearched, orders])
+}, [dogs, dogsSearched, currentPage, orders])
 
 const sendInfo = () => {
-  console.log(stateDogs)
-  if (search !== "") {
+  if (searchs !== "") {
     return dogsSearch
   } else {
     return stateDogs
   }
 }
 
-return <div> 
-{loading === true ? "Loading" : search==="" ? 
-<Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards> : dogsSearch?.length > 0 ?
-<Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards>  : <p>"Breed not found"</p>  }
-</div>
+return (
+<section className={style.home}>
+    <div className={style.container}>
+        <div className={style.bubbles}>
+          <span className={style.span_1}></span>
+          <span className={style.span_2}></span>
+          <span className={style.span_3}></span>
+          <span className={style.span_4}></span>
+          <span className={style.span_5}></span>
+          <span className={style.span_6}></span>
+          <span className={style.span_7}></span>
+          <span className={style.span_8}></span>
+          <span className={style.span_9}></span>
+          <span className={style.span_10}></span>
+          <span className={style.span_11}></span>
+          <span className={style.span_12}></span>
+          <span className={style.span_13}></span>
+          <span className={style.span_14}></span>
+          <span className={style.span_15}></span>
+          <span className={style.span_16}></span>
+          <span className={style.span_17}></span>
+          <span className={style.span_18}></span>
+          <span className={style.span_19}></span>
+          <span className={style.span_20}></span>
+        </div> 
+        {console.log(searchs)}
+{loading === true ? <div className={style.loading}> <Loading /> </div> : searchs==="" ? 
+<Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards> :
+<Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards>    }
+    </div>
+</section>
+)
 }
 
 export default Razas;

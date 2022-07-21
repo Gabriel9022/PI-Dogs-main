@@ -1,0 +1,38 @@
+.searchButton
+{
+    position: relative;
+    color:blanchedalmond;
+    width: 8em;
+    height: 2em;
+    line-height: 2;
+    background: #2b2e2e;
+    border-radius: .25em;
+}
+
+.searchButton:disabled{
+    border-color: #ff2d75;
+}
+
+.searchButton:enabled{
+    border-color: #4fc3dc;
+}
+
+.search{
+    background: #2b2e2ead;
+    border-radius: .25em;
+    color: blanchedalmond;
+    position:relative;
+    bottom: 1px;
+    height: 19.5px;
+}
+
+.search::placeholder{
+    color: rgba(255, 235, 205, 0.754);
+}
+
+.p{
+  color:#b91010;
+  font-weight: 700;
+  font-size: 0.85em;  
+  letter-spacing: 1px;
+}

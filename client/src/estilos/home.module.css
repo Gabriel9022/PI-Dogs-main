@@ -1,8 +1,8 @@
-.detailPage{
+.home {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    min-height: 100vh;
+    min-height: 130vh;
     background: #0c192c
 }
 
@@ -13,57 +13,12 @@
     top:200px;
 }
 
-.container{
+.container
+{
     position: relative;
     width: 100%;
-    height: 110vh;
+    height: 140vh;
     overflow: hidden;
-    
-}
-
-.div {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: auto;
-
-    border-radius: 10px;
-    height: 600px;
-    width: 450px;
-
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.imagen {
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    max-height: 350px;
-}
-
-.imagen img{
-    width: 100%;
-   
-}
-
-.fonts h1{
-    position: relative;
-    text-align: center;
-    margin: 0;
-    color: #00ad26;
-}
-
-.fonts p{
-    color: blanchedalmond;
-    padding-left: 3%;
-}
-
-.fonts p span{
-    color: rgb(192, 178, 157);
 }
 
 .bubbles
@@ -100,7 +55,7 @@
 {
     0%
     {
-        transform: translateY(110vh) scale(0);
+        transform: translateY(140vh) scale(0);
     }
     100%
     {

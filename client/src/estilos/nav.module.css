@@ -1,0 +1,33 @@
+.padre
+{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    background-color: #192f51;
+    
+}
+
+.padre button
+{
+    position: relative;
+    color:blanchedalmond;
+    width: 8em;
+    height: 2em;
+    line-height: 2;
+    border-color: #4fc3dc;
+    background: #2b2e2e;
+    border-radius: .25em;
+
+}
+
+.links
+{
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+}
+
+.search
+{
+justify-content: flex-end;
+}

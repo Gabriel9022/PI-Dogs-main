@@ -8,16 +8,21 @@ const Card = ({image, name, weight_min, weight_max, temperament, id}) => {
     return ` ${e.name}`  
   }).join(',')
     return <div className={card.div}>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
       <div className={card.imagen}>
       <img src={image} alt="aquí va una imagen" />
-      </div>
+      </div> 
       <div className={card.info}>
       <h4 className={card.name}>{name}</h4>
       <p className={card.temperamento}>Temperament: {temperamento}</p>
-      <p className={card.peso}>Weight: {weight_min} - {weight_max}</p>
+      <p className={card.peso}>Weight: {`${weight_min} - ${weight_max} kg`}</p>
       </div>
       <div className={card.contBoton}>
       <Link to={`/detail/${id}`}><button className={card.button}>Detail</button></Link>
+
       </div>
     </div>;
   };

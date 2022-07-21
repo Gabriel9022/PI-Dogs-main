@@ -19,6 +19,9 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
     e.weight['metric'] = e.weight['metric'].concat(" - ", e.weight['metric'])
 }else if(e.weight['metric'][2] === "N"){
     e.weight['metric'] = e.weight['metric'].slice(6).concat(" - ", e.weight['metric'].slice(6))
+} else if (e.life_span.length < 12) {
+    lifeRepair = parseInt(e.life_span.slice(0,2))-1
+    e.life_span = lifeRepair.toString().concat(" - ", e.life_span)
 } else if (!e.temperament) {
     e.temperament = "Intelligent, Courageous"
 }
@@ -65,41 +68,24 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
    // if (!data.length) return res.send('No hay coincidencias')
 
       //  console.log(data)
-    return res.send(data)
+    return res.status(200).send(data)
 }catch(e){
-    return res.send(e.message)
+    return res.status(400).send(e.message)
  }
 }
 
-/*function nombreDetalle (name, res) {
-    
-    
-        axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`)
-        .then (response => {
-           // console.log (response)
-            const resp = response.data.map(e => {
-                return {
-             //       imagen: e.image['url'],
-                    nombre: e.name,
-           //         temperamento: e.temperament,
-              //      peso: e.weight['metric']
-                    }
-        })
-        res.json(resp)})
-        .catch(e => next(e))
-
-    } */
 
 async function idRaza(req, res, next) {
     try {
         const { id } = req.params;
+        console.log()
         const rutaRaza = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
         let razaDb = await Raza.findAll({
             include: Temperamento
         });
-      //  console.log(razaDb)
+
         let objId = {}
-     //  console.log(typeof(id))
+
         if(id.length < 4){
         rutaRaza.data?.forEach(e => {
             if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
@@ -108,6 +94,9 @@ async function idRaza(req, res, next) {
                 e.weight['metric'] = e.weight['metric'].concat(" - ", e.weight['metric'])
             }else if(e.weight['metric'][2] === "N"){
                 e.weight['metric'] = e.weight['metric'].slice(6).concat(" - ", e.weight['metric'].slice(6))
+            }else if (e.life_span.length < 12) {
+                lifeRepair = parseInt(e.life_span.slice(0,2))-1
+                e.life_span = lifeRepair.toString().concat(" - ", e.life_span)
             } else if (!e.temperament) {
                 e.temperament = "Intelligent, Courageous"
             }
@@ -131,17 +120,13 @@ async function idRaza(req, res, next) {
 
         })
         if (objId.hasOwnProperty("name")) {
-            return  res.json(objId);
+            return  res.status(200).json(objId);
            } else {
-              throw new Error ('No se encontró el ID');
-           } 
+             res.status(400).send('ID not found');
+           }  
     } else {
-     /* const temperam = razaDb.map(e => {
-             
-              return  e.temperamentos
-            
-        }) */
-        //console.log()
+    
+        
         razaDb.forEach(e => {
             if(!e.image){
                 e.image = "https://w7.pngwing.com/pngs/774/119/png-transparent-dog-puppy-cartoon-cute-pet-s-mammal-cat-like-mammal-carnivoran-thumbnail.png"
@@ -165,16 +150,16 @@ async function idRaza(req, res, next) {
 
         })
         if (objId.hasOwnProperty("name")) {
-            return  res.json(objId);
+            return  res.status(200).json(objId);
            } else {
-              throw new Error ('No se encontró el ID');
+             res.status(400).send('No se encontró el ID');
            } 
     }
 //console.log(objId)
     
     }
     catch (e) {
-        res.send('No se encontro el ID')
+        res.status(400).send('No se encontro el ID')
         //next(e)
     }
 }
@@ -205,11 +190,12 @@ async function crearRaza (req, res, next){
       //  console.log(razaNueva)
         const razaN = await razaNueva.addTemperamento(temperamentoId);
         return res.json(razaN);
-        //  return alert ('Raza creada') no hace nada
+       
     }
         return res.status(400).json({message: 'Ya existe esa raza'}) // no hace nada
     
 }
+
 
 
 module.exports={

@@ -1,7 +1,151 @@
+.currentFont{
+    color: blanchedalmond;
+}
+
+
+.buttonsDiv button{
+    position: relative;
+    color:blanchedalmond;
+    width: 9.1em;
+    height: 2em;
+    line-height: 2;
+    background: #2b2e2e;
+    border-radius: .25em;
+}
+
+.orders {
+    position: relative;
+    display: flex;
+    width: 9.1em;
+    height: 2em;
+    line-height: 2;
+    background: #ffffff44;
+    margin-bottom: 5px;
+    border-radius: .25em;
+ }
+ .orders::after {
+    content: '\25BC';
+    position:absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #2b2e2e;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+ }
+ .orders:hover::after {
+    color: #4fc3dc;
+ }
+
+.select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #3996aa;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color:#fff;
+    cursor:pointer;
+    font-size: 0.8em;
+    font-family: 'Open Sans', sans-serif;
+ }
+ .select::-ms-expand {
+    display: none;
+ }
+ 
+
+.padre{
+    position: relative;
+    z-index: 2;
+}
+
+.hijoDelPadre{
+    position: absolute;
+    background-color: #11223cd8;
+    padding: 0px;
+    border-radius: 5px;
+}
+
+.padreDelTempsSelect{
+    position: relative;
+    display: flex;
+    width: 12em;
+    height: 2em;
+    line-height: 2;
+    background: #ffffff44;
+    border-radius: .25em;
+ }
+ .padreDelTempsSelect::after {
+    content: '\25BC';
+    position:absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #2b2e2e;
+    cursor:pointer;
+    pointer-events:none;
+    transition:.25s all ease;
+ }
+ .padreDelTempsSelect:hover::after {
+    color: #ff2d75;
+ }
+
+ .tempsSelect {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+    outline:0;
+    box-shadow:none;
+    border:0!important;
+    background: #ff2d75;
+    background-image: none;
+    flex: 1;
+    padding: 0 .5em;
+    color:#fff;
+    cursor:pointer;
+    font-size: 0.8em;
+    font-family: 'Open Sans', sans-serif;
+ }
+ .tempsSelect::-ms-expand {
+    display: none;
+ }
+
+
 .div{
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100%; 
+    justify-content:space-between;
+    box-sizing: border-box;
+    flex-wrap: wrap; 
+    width: 100vw;
+    height: 100vh; 
 } 
+
+.row{
+    position: relative;
+    justify-content:space-between;
+    margin: 10px auto;
+    max-width: 1200px;
+
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.column{
+    float: left;
+    padding: 0 20px;
+    margin-bottom: 25px;
+    
+}
+
+

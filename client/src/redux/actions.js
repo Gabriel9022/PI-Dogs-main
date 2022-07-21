@@ -17,14 +17,14 @@ export const DB_FILTER = "DB_FILTER";
 
 export const getAllDogs = () => async(dispatch) => {
     try {
-        dispatch(loading (true))
-       // dispatch(orderAzZa(true))
+        dispatch(loading(true))
+        
       let info =  await axios.get('http://localhost:3001/dogs')
       info = info.data
-   //   console.log(info)
+ 
          dispatch({ type: "GET_ALL_DOGS", payload: info })
-         //dispatch(orderazza(false))
-         return dispatch(loading (false))
+        
+         return dispatch(loading(false))
     } catch (error) {
              console.log(error)
     }
@@ -49,11 +49,11 @@ export const getDogId = (id) => async (dispatch) => {
     try {
         dispatch(loading (true))
         let data = (await axios.get(`http://localhost:3001/dogs/${id}`)).data
-     //   console.log(data)
+     
         dispatch({type: "GET_DOG_ID", payload: data})
         return dispatch(loading (false))
     } catch (error) {
-        console.log(error)
+       alert(error.response.data)
     }
 }
 
@@ -63,19 +63,19 @@ export const newDog = (newDog) => async (dispatch) => {
         await axios({method:"post", url: "http://localhost:3001/dogs", data: newDog})
         
          dispatch({type: "NEW_DOG", payload: newDog})
-         return alert ('Raza creada')
+         return alert ('Breed created successfully')
     } 
     catch (error) {
         console.log(error)
         return alert (error.response.data.message) 
-        //no estoy seguro si sirve para otros errores que no sean axios
+        
     }
     }
 
 export const temperamentos = () => async (dispatch) => {
     try {
         let temps = (await axios.get('http://localhost:3001/temperaments')).data
-       // console.log(temps)
+        
         return dispatch({type: "TEMPERAMENTS", payload: temps})
     } catch (error) {
         console.log(error)
@@ -83,7 +83,6 @@ export const temperamentos = () => async (dispatch) => {
 }
 
 export const search = (e) => (dispatch) => {
-    //  if(!e){ dispatch (getAllDogs())}
     return dispatch ({type: "SEARCH", payload: e})
 }
 
@@ -100,7 +99,7 @@ export const search = (e) => (dispatch) => {
 } 
 
 export const filter = (e) => {
-        return {type: "TEMPS_FILTER", payload: e}  
+        return {type: "TEMPS_FILTER", payload: e}       
 }
 
 export const backFilter = (e) => {
@@ -116,5 +115,6 @@ export const resetDogsSearched = (e) => (dispatch) => {
 }
 
 export const loading = (handle) => (dispatch) => {
+    
    return dispatch ({type: "LOADING", payload: handle})
 }

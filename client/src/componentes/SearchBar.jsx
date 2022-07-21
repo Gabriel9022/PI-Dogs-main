@@ -1,24 +1,36 @@
 import React, {useState} from 'react';
 import {getDog, search} from '../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-/* import validate from '../validates/validateSearch'; */
+import style from '../estilos/searchBar.module.css';
 
 const SearchBar = ({setCurrentPage}) => {
 
 let history = useHistory() 
 
-// const searchState = useSelector((state) => state.search)
+
+const dogsBackUp = useSelector ((state)=> state.dogsBackUp)
+
+
 
 const [state, setState] = useState("")
 
-/* const [errors, setErrors] = useState({}); */
+const [error, setError] = useState("")
+
 
 const dispatch = useDispatch()
 
-const handleChange = (e) => {   
-      setState( e.target.value );
-  }
+const handleChange = (e) => { 
+
+  if(e.target.value === ""){
+    setError("");
+    setState( e.target.value );
+  }  else if (dogsBackUp.find(f => f.name.toLowerCase().includes(e.target.value.toLowerCase()))){
+    setState( e.target.value );
+  } else if (!dogsBackUp.find(f => f.name.toLowerCase().includes(e.target.value.toLowerCase()))){
+    setError("Breed Not Found")
+  }      
+}
   
 const  handleSubmit = (e) => {
     e.preventDefault(); 
@@ -26,23 +38,25 @@ const  handleSubmit = (e) => {
     dispatch(getDog(state));
     dispatch(search(state))
     setState("");
+    setError("");
     history.push('/home')
   }
 
   return (
-    <div>
+    <div >
         <form >
-        <input /* className={errors.state && 'danger'} */
+        <input className={style.search}
         type="text"
         placeholder='Breed...'
         value={state}
         onChange={(e) => handleChange(e)}
         />
-     {/*    {errors.state && (
-        <p className="danger">{errors.state}</p>
-)} */}
-        <input type="submit" disabled={!state || state[0] === " "} 
+      
+
+        <input className={style.searchButton} type="submit" disabled={!state || state[0] === " "} 
         onClick={(e) => handleSubmit(e)}  value="Search"/>
+
+        {error && <p className={style.p}>{error}</p>}
         </form>
 
     </div>
