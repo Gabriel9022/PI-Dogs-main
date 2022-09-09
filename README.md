@@ -35,7 +35,7 @@ La idea general fue crear una aplicación en la cual se puedan ver distintas raz
 
 Toda la estética de la aplicación está hecho con CSS puro.
 
-#### Tecnologías
+## Tecnologías
 
 - [ ] React
 - [ ] Redux
