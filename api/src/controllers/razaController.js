@@ -4,14 +4,10 @@ const {Raza, Temperamento} = require('../db');
 
 async function getAllBreeds(req, res, next){
     const {name} = req.query;
-  //  if (name) return nombreDetalle(name, res);
+
 try{
     let razas = (await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)).data
-    // if(name) {
-    //     razas = razas.filter(e => e.name.includes(name))
-    // }
-    // if (!razas.length) throw new Error ("No hay coincidencias con la búsqueda")
-   // console.log(razas);
+   
    const dataApi = razas?.map(e => {
 if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
     e.weight['metric'] = "25 - 50"
@@ -55,6 +51,7 @@ if(e.weight['metric'][2] === "N" && e.weight['metric'].length< 4) {
       temperament: e.temperamentos,
       weight_min: e.weight_min,
       weight_max: e.weight_max,
+      creado_por: e.creado_por,
       }})  
 //console.log(dataDb)
   let data = dataDb.concat(dataApi);
@@ -192,7 +189,7 @@ async function crearRaza (req, res, next){
         return res.json(razaN);
        
     }
-        return res.status(400).json({message: 'Ya existe esa raza'}) // no hace nada
+        return res.status(400).json({message: 'Ya existe esa raza'}) 
     
 }
 

@@ -57,6 +57,11 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
         },
 
+        creado_por:{
+            type: DataTypes.STRING,
+            defaultValue: "Gabriel"
+        }
+
     },
         { timestamps: false });
 
