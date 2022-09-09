@@ -33,7 +33,7 @@ export class Landing extends Component {
         </div>
         <div className={style.divLink}>
             <Link className={style.link} to="/home" ><button className={style.button} > Know your best friend </button> </Link>
-          </div>
+        </div>
         <div className={style.divImage}>
           <img src={image} alt="Landing"/>
         </div>

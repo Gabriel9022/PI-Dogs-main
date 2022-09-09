@@ -43,8 +43,8 @@ if(dogs?.length && !stateDogs?.length && !dogsSearch.length) {
 }
 if (searchs !== "" && dogs !== undefined && stateDogs.length === 0 && dogsSearch.length===0){
 
-setStateDogs(([...dogs].splice(currentPage, dogsPerPage)))
-setDogsSearch(([...dogsSearched].splice(currentPage, dogsPerPage)))
+setStateDogs([...dogs].splice(currentPage, dogsPerPage))
+setDogsSearch([...dogsSearched].splice(currentPage, dogsPerPage))
 }
 
 
@@ -70,7 +70,7 @@ if (searchs === "") {
 }
 
 const prevHandler = () => {
-  const prevPage = currentPage -1;
+const prevPage = currentPage -1;
 if (prevPage < 0) return;
 const firstIndex = prevPage * dogsPerPage;
 const searchIndex = prevPage * dogsPerPage;
@@ -147,9 +147,10 @@ const sendInfo = () => {
   }
 }
 
-return (
-<section className={style.home}>
-    <div className={style.container}>
+  return (
+    <section className={style.home}>
+      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+      <div className={style.container}>
         <div className={style.bubbles}>
           <span className={style.span_1}></span>
           <span className={style.span_2}></span>
@@ -171,14 +172,13 @@ return (
           <span className={style.span_18}></span>
           <span className={style.span_19}></span>
           <span className={style.span_20}></span>
-        </div> 
-        {console.log(searchs)}
-{loading === true ? <div className={style.loading}> <Loading /> </div> : searchs==="" ? 
-<Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards> :
-<Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards>    }
-    </div>
-</section>
-)
+        </div>
+        {loading === true ? <div className={style.loading}> <Loading /> </div> : searchs === "" ?
+          <Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards> :
+          <Cards currentPage={currentPage} dogsProps={sendInfo()} nextHandler={nextHandler} prevHandler={prevHandler} order={orderHandler} filterT={filterTemps} ApiDbHandler={ApiDbHandler}></Cards>}
+      </div>
+    </section>
+  )
 }
 
 export default Razas;

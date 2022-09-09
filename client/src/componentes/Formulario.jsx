@@ -51,7 +51,7 @@ let handleSubmit = (e)=> {
     .then(()=>{
         let form = document.getElementById("form")
         form.reset()
-    })
+    }) 
     setStateValidate({
         image: "",
         name: "",
@@ -71,11 +71,13 @@ let handleSelect = (e) => {
 const select = e.target.value;
 if (select === "default") return
 if(stateValidate.temperament.includes(e.target.value)) return
-setStateValidate({...stateValidate, temperament:[...stateValidate.temperament, select]})
+setStateValidate({...stateValidate, 
+                temperament:[...stateValidate.temperament, select]})
 
-setTemper([...temper, temps.find(e => e.id === parseInt(select))])
+setTemper([...temper, 
+            temps.find(e => e.id === parseInt(select))])
 
-}
+};
 
 let handleDelete = (e) => {
    let borrado = stateValidate.temperament.filter(f => parseInt(f) !== e.id)
@@ -84,7 +86,7 @@ let handleDelete = (e) => {
 
     setStateValidate({...stateValidate, temperament: borrado})
     setTemper(borrado2)
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 }
 
 return (

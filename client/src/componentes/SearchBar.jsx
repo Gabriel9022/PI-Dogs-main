@@ -36,7 +36,7 @@ const  handleSubmit = (e) => {
     e.preventDefault(); 
     setCurrentPage(0)
     dispatch(getDog(state));
-    dispatch(search(state))
+    dispatch(search(state)) 
     setState("");
     setError("");
     history.push('/home')

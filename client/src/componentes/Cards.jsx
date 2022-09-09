@@ -105,6 +105,7 @@ return arr
               weight_min={e.weight_min}
               weight_max={e.weight_max}
               temperament={e.temperament}
+              creado_por={e.creado_por}
             /> : "breed not found" }
              
             </div>

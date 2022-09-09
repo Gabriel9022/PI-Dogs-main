@@ -4,6 +4,7 @@
     position: relative;
     justify-content: space-between;
     background-color: #192f51;
+    z-index: 300;
     
 }
 

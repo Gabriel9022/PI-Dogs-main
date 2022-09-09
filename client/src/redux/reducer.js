@@ -131,7 +131,6 @@ const rootReducer = (state = initialState, action) => {
                 };
             case DB_FILTER:
                 const dbFilter = [...state.dogs].filter(e => typeof(e.id) !== "number")
-                console.log(dbFilter)
                 return{
                     ...state,
                     dogs: dbFilter

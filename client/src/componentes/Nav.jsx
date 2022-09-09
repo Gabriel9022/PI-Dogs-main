@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import {search, getAllDogs} from "../redux/actions";
+import {search, getAllDogs, resetDogsSearched} from "../redux/actions";
 import { useDispatch } from "react-redux";
-import {resetDogsSearched} from "../redux/actions";
 import style from "../estilos/nav.module.css";
 
 const Nav = ({currentPage, setCurrentPage}) => {
